@@ -1,4 +1,8 @@
-# vim-textobj-topform
+vim-textobj-topform
+===================
+[![Build Status](https://travis-ci.com/adolenc/vim-textobj-topform.svg?branch=master)](https://travis-ci.com/adolenc/vim-textobj-topform)
+[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+
 vim-textobj-topform is a (neo)vim plugin defining a new textobject: 'top-level
 form', bound to <kbd>T</kbd> by default. It is great for sending pieces of code
 to a REPL, or moving logical chunks of code around the file in arbitrary

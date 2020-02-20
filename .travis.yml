@@ -1,0 +1,21 @@
+language: vim
+dist: bionic
+
+env:
+  matrix:
+    - CI_TARGET=vim
+    - CI_TARGET=neovim VSPEC_VIM=nvim
+
+
+before_install: |
+  if [ "$CI_TARGET" = vim ]; then
+    sudo apt-get -y install vim-gnome
+  else
+    sudo apt-get -y install neovim
+  fi
+
+install:
+  - make test-dependencies
+
+script:
+  - make tests
