@@ -58,14 +58,10 @@ endfunction
 
 function! s:find_topform_end(start_linenr)
   let next_topform_start_linenr = s:below(a:start_linenr)
-  let end_linenr = a:start_linenr
   while s:is_inside_buffer(next_topform_start_linenr) && !s:is_start_of_topform(next_topform_start_linenr)
-    if !s:is_empty(next_topform_start_linenr)
-      let end_linenr = next_topform_start_linenr
-    endif
     let next_topform_start_linenr = s:below(next_topform_start_linenr)
   endwhile
-  return end_linenr
+  return prevnonblank(s:above(next_topform_start_linenr))
 endfunction
 
 function! s:select_in_topform(cursor_linenr)
