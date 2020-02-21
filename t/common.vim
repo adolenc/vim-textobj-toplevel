@@ -4,6 +4,12 @@ function! ExecuteViTFromLine(linenr)
   return [line("'<"), line("'>")]
 endfunction
 
+function! ExecuteVaTFromLine(linenr)
+  execute "normal! " . a:linenr . "G"
+  execute "normal V\<Plug>(textobj-topform-a)\<Esc>"
+  return [line("'<"), line("'>")]
+endfunction
+
 function! SetBufferContents(lines)
   tabnew
   tabonly!

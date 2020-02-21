@@ -157,4 +157,65 @@ describe 'Readme example'
     Expect ExecuteViTFromLine(18) to_select_lines [18, 19]
     Expect ExecuteViTFromLine(19) to_select_lines [18, 19]
   end
+
+  it 'selects the trailing whitespace after first function'
+    for linenr in range(1, 7)
+      Expect ExecuteVaTFromLine(linenr) to_select_lines [1, 8]
+    endfor
+  end
+
+  it 'selects the trailing whitespace after second function'
+    for linenr in range(9, 17)
+      Expect ExecuteVaTFromLine(linenr) to_select_lines [9, 17]
+    endfor
+  end
+
+  it 'selects the preceding whitespace before the two function calls'
+    Expect ExecuteVaTFromLine(18) to_select_lines [16, 19]
+    Expect ExecuteVaTFromLine(19) to_select_lines [16, 19]
+  end
+
+end
+
+describe 'Edgecase with only indented lines'
+  before
+    call SetBufferContents([
+    \   '',
+    \   '',
+    \   '  import lib1',
+    \   '  import lib2',
+    \   '',
+    \ ])
+  end
+
+  it 'selects all the lines until the top of the file'
+    Expect ExecuteViTFromLine(3) to_select_lines [1, 4]
+    Expect ExecuteViTFromLine(4) to_select_lines [1, 4]
+  end
+end
+
+describe 'Edgecase with blank file'
+  before
+    call SetBufferContents([
+    \   '',
+    \ ])
+  end
+
+  it 'selects the blank line'
+    Expect ExecuteViTFromLine(1) to_select_lines [1, 1]
+  end
+end
+
+describe 'Edgecase with only unindented lines'
+  before
+    call SetBufferContents([
+    \   'import lib1',
+    \   'import lib2',
+    \ ])
+  end
+
+  it 'selects all unindented lines'
+    Expect ExecuteViTFromLine(1) to_select_lines [1, 2]
+    Expect ExecuteViTFromLine(2) to_select_lines [1, 2]
+  end
 end
