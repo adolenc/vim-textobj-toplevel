@@ -29,7 +29,7 @@ aT iT
 │  │      int c = a + b;
 │  │  
 │  │      return c * 3;
-│  └  } // part of topform because line above is not empty
+│  └  } // part of topform because line above is not blank
 │     
 └     
 ┌  ┌  c = fn2(1, 2)
@@ -38,14 +38,14 @@ aT iT
 
 Intuitively a top-level form ('topform') can be thought of as a paragraph that
 takes indentation into account: a new topform starts at the first non-indented
-line following an empty line, and spans all the lines until the next topform.
+line following a blank line, and spans all the lines until the next topform.
 In most ('nicely' formatted) source files this covers definitions of functions,
 classes, include statements, individual assignments and invocations at top
 level, etc.
 
 vim-textobj-topform tries to mimic the built-in paragraph text object, with
 <kbd>iT</kbd> selecting the topform from anywhere within it, and <kbd>aT</kbd>
-selecting the topform as well as the trailing empty lines until the next
+selecting the topform as well as the trailing blank lines until the next
 topform.
 
 ## Installation

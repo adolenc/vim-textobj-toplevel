@@ -31,20 +31,16 @@ function! s:is_inside_buffer(linenr)
   return line('^') < a:linenr && a:linenr <= line('$')
 endfunction
 
-function! s:is_empty(linenr)
+function! s:is_blank(linenr)
   return getline(a:linenr) == ''
 endfunction
 
-function! s:is_indented(linenr)
-  return !s:is_empty(a:linenr) && (indent(a:linenr) > 0)
-endfunction
-
 function! s:is_unindented(linenr)
-  return !s:is_empty(a:linenr) && (indent(a:linenr) == 0)
+  return !s:is_blank(a:linenr) && (indent(a:linenr) == 0)
 endfunction
 
 function! s:is_start_of_topform(linenr)
-  return s:is_unindented(a:linenr) && s:is_empty(s:above(a:linenr))
+  return s:is_unindented(a:linenr) && s:is_blank(s:above(a:linenr))
 endfunction
 
 
@@ -65,8 +61,6 @@ function! s:find_topform_end(start_linenr)
 endfunction
 
 function! s:select_in_topform(cursor_linenr)
-  " the algorithm assumes that each line in the file is exactly one of
-  "   {is_indented, is_unindented, is_empty}
   let start_linenr = s:find_topform_start(a:cursor_linenr)
   let end_linenr = s:find_topform_end(start_linenr)
 
