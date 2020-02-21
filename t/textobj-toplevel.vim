@@ -1,5 +1,5 @@
 source t/common.vim
-source plugin/textobj/topform.vim
+source plugin/textobj/*.vim
 
 
 describe 'Two groups of imports'

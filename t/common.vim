@@ -1,12 +1,12 @@
 function! ExecuteViTFromLine(linenr)
   execute "normal! " . a:linenr . "G"
-  execute "normal V\<Plug>(textobj-topform-i)\<Esc>"
+  execute "normal V\<Plug>(textobj-toplevel-i)\<Esc>"
   return [line("'<"), line("'>")]
 endfunction
 
 function! ExecuteVaTFromLine(linenr)
   execute "normal! " . a:linenr . "G"
-  execute "normal V\<Plug>(textobj-topform-a)\<Esc>"
+  execute "normal V\<Plug>(textobj-toplevel-a)\<Esc>"
   return [line("'<"), line("'>")]
 endfunction
 

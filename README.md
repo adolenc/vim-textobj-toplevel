@@ -1,10 +1,10 @@
-vim-textobj-topform
+vim-textobj-toplevel
 ===================
-[![Build Status](https://travis-ci.com/adolenc/vim-textobj-topform.svg?branch=master)](https://travis-ci.com/adolenc/vim-textobj-topform)
+[![Build Status](https://travis-ci.com/adolenc/vim-textobj-toplevel.svg?branch=master)](https://travis-ci.com/adolenc/vim-textobj-toplevel)
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 
-vim-textobj-topform is a (neo)vim plugin defining a new textobject: 'top-level
-form', bound to <kbd>T</kbd> by default. It is great for sending pieces of code
+vim-textobj-toplevel is a (neo)vim plugin defining a new textobject: 'top-level
+block', bound to <kbd>T</kbd> by default. It is great for sending pieces of code
 to a REPL, or moving logical chunks of code around the file in arbitrary
 programming language.
 
@@ -29,24 +29,23 @@ aT iT
 │  │      int c = a + b;
 │  │  
 │  │      return c * 3;
-│  └  } // part of topform because line above is not blank
+│  └  } // part of top-level block because line above is not blank
 │     
 └     
 ┌  ┌  c = fn2(1, 2)
 └  └  fn(c)
 ```
 
-Intuitively a top-level form ('topform') can be thought of as a paragraph that
-takes indentation into account: a new topform starts at the first non-indented
-line following a blank line, and spans all the lines until the next topform.
-In most ('nicely' formatted) source files this covers definitions of functions,
-classes, include statements, individual assignments and invocations at top
-level, etc.
+Intuitively a top-level block can be thought of as a paragraph
+that takes indentation into account: a new top-level block starts at the
+first non-indented line following a blank line, and spans all the lines until
+the next top-level block. In most ('nicely' formatted) source files this
+covers definitions of functions, classes, include statements, individual
+assignments and invocations at top level, etc.
 
-vim-textobj-topform tries to mimic the built-in paragraph text object, with
-<kbd>iT</kbd> selecting the topform from anywhere within it, and <kbd>aT</kbd>
-selecting the topform as well as the trailing blank lines until the next
-topform.
+vim-textobj-toplevel tries to mimic the built-in paragraph text object, with
+<kbd>iT</kbd> selecting the top-level block from anywhere within it, and
+<kbd>aT</kbd> selecting the top-level block and the trailing blank lines.
 
 ## Installation
 This plugin depends on Kana's
@@ -55,5 +54,5 @@ This plugin depends on Kana's
 `vimrc`:
 
 ```
-Plug 'adolenc/vim-textobj-topform' | Plug 'kana/vim-textobj-user'
+Plug 'adolenc/vim-textobj-toplevel' | Plug 'kana/vim-textobj-user'
 ```
