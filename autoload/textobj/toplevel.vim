@@ -10,6 +10,60 @@ function! textobj#toplevel#select_a()
 endfunction
 
 
+function! textobj#toplevel#target_new(args)
+  return {
+         \ 'args': {
+         \     'count': get(a:args, 'c', 1),
+         \ },
+         \ 'genFuncs': {
+         \     'c': function('textobj#toplevel#target_current'),
+         \     'n': function('textobj#toplevel#target_next'),
+         \     'l': function('textobj#toplevel#target_last'),
+         \ },
+         \ 'modFuncs': {
+         \     'i': function('textobj#toplevel#modify_to_linewise'),
+         \     'a': function('textobj#toplevel#select_trailing_whitespace'),
+         \ }}
+endfunction
+
+function! textobj#toplevel#target_current(args, opts, state)
+  if !a:opts.first | return | endif
+
+  return s:encode_targets(s:select_in_toplevel(line('.')))
+endfunction
+
+function! textobj#toplevel#target_next(args, opts, state)
+  let start = s:find_toplevel_end(line('.'))
+  let start = nextnonblank(s:below(start))
+
+  return s:encode_targets(s:select_in_toplevel(start))
+endfunction
+
+function! textobj#toplevel#target_last(args, opts, state)
+  let cursor_pos = line('.')
+  let [start, end] = s:select_in_toplevel(cursor_pos)
+  if (start <= cursor_pos && cursor_pos <= end)
+    return s:encode_targets(s:select_in_toplevel(s:above(start)))
+  else
+    return s:encode_targets([start, end])
+  endif
+endfunction
+
+function! s:encode_targets(range)
+  return [a:range[0], 1,
+         \a:range[1], len(getline(a:range[1])]
+endfunction
+
+function! textobj#toplevel#modify_to_linewise(target, args)
+  let a:target.linewise = 1
+endfunction
+
+function! textobj#toplevel#select_trailing_whitespace(target, args)
+  let a:target.linewise = 1
+  let [a:target.sl, a:target.el] = s:select_surrounding_blank_lines([a:target.sl, a:target.el])
+endfunction
+
+
 function! s:encode_linerange(range)
   let [start_linenr, end_linenr] = a:range
   return ['V',

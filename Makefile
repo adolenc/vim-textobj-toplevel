@@ -1,9 +1,10 @@
 .PHONY: test-dependencies tests
 
 tests:
-	dependencies/vim-vspec/bin/prove-vspec -d . -d dependencies/vim-textobj-user
+	dependencies/vim-vspec/bin/prove-vspec -d . -d dependencies/vim-textobj-user -d dependencies/targets.vim
 
 test-dependencies:
 	-mkdir dependencies
 	-git clone https://github.com/kana/vim-vspec dependencies/vim-vspec
 	-git clone https://github.com/kana/vim-textobj-user dependencies/vim-textobj-user
+	-git clone https://github.com/wellle/targets.vim dependencies/targets.vim

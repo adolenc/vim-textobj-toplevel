@@ -9,4 +9,8 @@ call textobj#user#plugin('toplevel', {
 \      }
 \    })
 
+
+autocmd User targets#sources call targets#sources#register('toplevel', function('textobj#toplevel#target_new'))
+autocmd User targets#mappings#plugin call targets#mappings#extend({'T': {'toplevel': [{'c': 1}]}})
+
 let g:loaded_textobj_toplevel = 1
