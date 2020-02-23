@@ -12,9 +12,6 @@ endfunction
 
 function! textobj#toplevel#target_new(args)
   return {
-         \ 'args': {
-         \     'count': get(a:args, 'c', 1),
-         \ },
          \ 'genFuncs': {
          \     'c': function('textobj#toplevel#target_current'),
          \     'n': function('textobj#toplevel#target_next'),
