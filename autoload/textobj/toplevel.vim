@@ -51,7 +51,7 @@ endfunction
 
 function! s:encode_targets(range)
   return [a:range[0], 1,
-         \a:range[1], len(getline(a:range[1])]
+        \ a:range[1], len(getline(a:range[1])) + 1]
 endfunction
 
 function! textobj#toplevel#modify_to_linewise(target, args)

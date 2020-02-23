@@ -1,5 +1,4 @@
 runtime! plugin/textobj/*.vim
-version
 
 
 describe 'The plugin'

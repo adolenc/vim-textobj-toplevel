@@ -1,5 +1,4 @@
 source t/common.vim
-source plugin/textobj/*.vim
 
 
 describe 'Two groups of imports'
@@ -17,12 +16,12 @@ describe 'Two groups of imports'
   end
 
   it 'selects the first group of imports'
-    Expect ExecuteViTFromLine(3) to_select_lines [3, 4]
-    Expect ExecuteViTFromLine(4) to_select_lines [3, 4]
+    Expect ExecuteTextObjFromLine(3, 'i') to_select_lines [3, 4]
+    Expect ExecuteTextObjFromLine(4, 'i') to_select_lines [3, 4]
   end
 
   it 'selects the third import'
-    Expect ExecuteViTFromLine(7) to_select_lines [7, 7]
+    Expect ExecuteTextObjFromLine(7, 'i') to_select_lines [7, 7]
   end
 end
 
@@ -50,24 +49,24 @@ describe 'Python example'
   end
 
   it 'selects the correct individual import'
-    Expect ExecuteViTFromLine(1) to_select_lines [1, 2]
-    Expect ExecuteViTFromLine(2) to_select_lines [1, 2]
+    Expect ExecuteTextObjFromLine(1, 'i') to_select_lines [1, 2]
+    Expect ExecuteTextObjFromLine(2, 'i') to_select_lines [1, 2]
   end
 
   it 'selects the entire first function'
     for linenr in range(5, 10)
-      Expect ExecuteViTFromLine(linenr) to_select_lines [5, 10]
+      Expect ExecuteTextObjFromLine(linenr, 'i') to_select_lines [5, 10]
     endfor
   end
 
   it 'selects the entire second function'
     for linenr in range(12, 15)
-      Expect ExecuteViTFromLine(linenr) to_select_lines [12, 15]
+      Expect ExecuteTextObjFromLine(linenr, 'i') to_select_lines [12, 15]
     endfor
   end
 
   it 'selects the invocation of a function'
-    Expect ExecuteViTFromLine(17) to_select_lines [17, 17]
+    Expect ExecuteTextObjFromLine(17, 'i') to_select_lines [17, 17]
   end
 end
 
@@ -98,19 +97,19 @@ describe 'C++ example'
   end
 
   it 'selects the two includes'
-    Expect ExecuteViTFromLine(1) to_select_lines [1, 2]
-    Expect ExecuteViTFromLine(2) to_select_lines [1, 2]
+    Expect ExecuteTextObjFromLine(1, 'i') to_select_lines [1, 2]
+    Expect ExecuteTextObjFromLine(2, 'i') to_select_lines [1, 2]
   end
 
   it 'selects the entire first function'
     for linenr in range(5, 11)
-      Expect ExecuteViTFromLine(linenr) to_select_lines [5, 11]
+      Expect ExecuteTextObjFromLine(linenr, 'i') to_select_lines [5, 11]
     endfor
   end
 
   it 'selects the entire second function'
     for linenr in range(13, 20)
-      Expect ExecuteViTFromLine(linenr) to_select_lines [13, 20]
+      Expect ExecuteTextObjFromLine(linenr, 'i') to_select_lines [13, 20]
     endfor
   end
 end
@@ -143,36 +142,36 @@ describe 'Readme example'
 
   it 'selects the entire first function'
     for linenr in range(1, 7)
-      Expect ExecuteViTFromLine(linenr) to_select_lines [1, 7]
+      Expect ExecuteTextObjFromLine(linenr, 'i') to_select_lines [1, 7]
     endfor
   end
 
   it 'selects the entire second function'
     for linenr in range(9, 15)
-      Expect ExecuteViTFromLine(linenr) to_select_lines [9, 15]
+      Expect ExecuteTextObjFromLine(linenr, 'i') to_select_lines [9, 15]
     endfor
   end
 
   it 'selects the invocation of a function'
-    Expect ExecuteViTFromLine(18) to_select_lines [18, 19]
-    Expect ExecuteViTFromLine(19) to_select_lines [18, 19]
+    Expect ExecuteTextObjFromLine(18, 'i') to_select_lines [18, 19]
+    Expect ExecuteTextObjFromLine(19, 'i') to_select_lines [18, 19]
   end
 
   it 'selects the trailing whitespace after first function'
     for linenr in range(1, 7)
-      Expect ExecuteVaTFromLine(linenr) to_select_lines [1, 8]
+      Expect ExecuteTextObjFromLine(linenr, 'a') to_select_lines [1, 8]
     endfor
   end
 
   it 'selects the trailing whitespace after second function'
     for linenr in range(9, 17)
-      Expect ExecuteVaTFromLine(linenr) to_select_lines [9, 17]
+      Expect ExecuteTextObjFromLine(linenr, 'a') to_select_lines [9, 17]
     endfor
   end
 
   it 'selects the preceding whitespace before the two function calls'
-    Expect ExecuteVaTFromLine(18) to_select_lines [16, 19]
-    Expect ExecuteVaTFromLine(19) to_select_lines [16, 19]
+    Expect ExecuteTextObjFromLine(18, 'a') to_select_lines [16, 19]
+    Expect ExecuteTextObjFromLine(19, 'a') to_select_lines [16, 19]
   end
 
 end
@@ -189,8 +188,8 @@ describe 'Edgecase with only indented lines'
   end
 
   it 'selects all the lines until the top of the file'
-    Expect ExecuteViTFromLine(3) to_select_lines [1, 4]
-    Expect ExecuteViTFromLine(4) to_select_lines [1, 4]
+    Expect ExecuteTextObjFromLine(3, 'i') to_select_lines [1, 4]
+    Expect ExecuteTextObjFromLine(4, 'i') to_select_lines [1, 4]
   end
 end
 
@@ -202,7 +201,7 @@ describe 'Edgecase with blank file'
   end
 
   it 'selects the blank line'
-    Expect ExecuteViTFromLine(1) to_select_lines [1, 1]
+    Expect ExecuteTextObjFromLine(1, 'i') to_select_lines [1, 1]
   end
 end
 
@@ -215,7 +214,7 @@ describe 'Edgecase with only unindented lines'
   end
 
   it 'selects all unindented lines'
-    Expect ExecuteViTFromLine(1) to_select_lines [1, 2]
-    Expect ExecuteViTFromLine(2) to_select_lines [1, 2]
+    Expect ExecuteTextObjFromLine(1, 'i') to_select_lines [1, 2]
+    Expect ExecuteTextObjFromLine(2, 'i') to_select_lines [1, 2]
   end
 end

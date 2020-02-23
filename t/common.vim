@@ -1,12 +1,8 @@
-function! ExecuteViTFromLine(linenr)
-  execute "normal! " . a:linenr . "G"
-  execute "normal V\<Plug>(textobj-toplevel-i)\<Esc>"
-  return [line("'<"), line("'>")]
-endfunction
+runtime! plugin/textobj/*.vim
 
-function! ExecuteVaTFromLine(linenr)
+function! ExecuteTextObjFromLine(linenr, modifier)
   execute "normal! " . a:linenr . "G"
-  execute "normal V\<Plug>(textobj-toplevel-a)\<Esc>"
+  execute "normal V" . a:modifier . "T\<Esc>"
   return [line("'<"), line("'>")]
 endfunction
 
